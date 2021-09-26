@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Default)]
 pub struct FileOperation {
     /**
@@ -52,80 +52,80 @@ pub struct Workspace {
     'workspace/applyEdit'
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub applyEdit: Option<bool>,
+    pub applyEdit: Option<bool>,
 
     /**
     Capabilities specific to `WorkspaceEdit`s
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub workspaceEdit: Option<WorkspaceEditClient>,
+    pub workspaceEdit: Option<WorkspaceEditClient>,
 
     /**
     Capabilities specific to the `workspace/didChangeConfiguration`
     notification.
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub didChangeConfiguration: Option<DidChangeConfigurationClient>,
+    pub didChangeConfiguration: Option<DidChangeConfigurationClient>,
 
     /**
     Capabilities specific to the `workspace/didChangeWatchedFiles`
     notification.
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub didChangeWatchedFiles: Option<DidChangeWatchedFilesClient>,
+    pub didChangeWatchedFiles: Option<DidChangeWatchedFilesClient>,
 
     /**
     Capabilities specific to the `workspace/symbol` request.
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub symbol: Option<WorkspaceSymbolClient>,
+    pub symbol: Option<WorkspaceSymbolClient>,
 
     /**
     Capabilities specific to the `workspace/executeCommand` request.
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub executeCommand: Option<ExecuteCommandClient>,
+    pub executeCommand: Option<ExecuteCommandClient>,
 
     /**
     The client has support for workspace folders.
-    
+
     *since lsp v3.6.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub workspaceFolders: Option<bool>,
+    pub workspaceFolders: Option<bool>,
 
     /**
     The client supports `workspace/configuration` requests.
-    
+
     *since lsp v3.6.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub configuration: Option<bool>,
+    pub configuration: Option<bool>,
 
     /**
     Capabilities specific to the semantic token requests scoped to the
     workspace.
-    
+
     *since lsp v3.16.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub semanticTokens: Option<SemanticTokensWorkspaceClient>,
+    pub semanticTokens: Option<SemanticTokensWorkspaceClient>,
 
     /**
     Capabilities specific to the code lens requests scoped to the
     workspace.
-    
+
     *since lsp v3.16.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub codeLens: Option<CodeLensWorkspaceClient>,
+    pub codeLens: Option<CodeLensWorkspaceClient>,
     /**
     The client has support for file requests/notifications.
-    
+
     *since lsp v3.16.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-pub fileOperations: Option<FileOperation>,
+    pub fileOperations: Option<FileOperation>,
 }
 #[derive(Debug, Serialize, Default)]
 #[serde(flatten)]
@@ -155,88 +155,88 @@ pub struct ChangeAnnotationSupport {
 #[derive(Debug, Serialize, Default)]
 pub struct WorkspaceEditClient {
     /**
-	The client supports versioned document changes in `WorkspaceEdit`s
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub documentChanges: Option<bool>,
+    The client supports versioned document changes in `WorkspaceEdit`s
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub documentChanges: Option<bool>,
 
-	/**
-	The resource operations the client supports. Clients should at least
-	support 'create', 'rename' and 'delete' files and folders.
-	
-	*since lsp v3.13.0*
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub resourceOperations: Option<Vec<ResourceOperationKind>>,
+    /**
+    The resource operations the client supports. Clients should at least
+    support 'create', 'rename' and 'delete' files and folders.
 
-	/**
-	The failure handling strategy of a client if applying the workspace edit
-	fails.
-	
-	*since lsp v3.13.0*
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub failureHandling: Option<FailureHandlingKind>,
+    *since lsp v3.13.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resourceOperations: Option<Vec<ResourceOperationKind>>,
 
-	/**
-	Whether the client normalizes line endings to the client specific
-	setting.
-	If set to `true` the client will normalize line ending characters
-	in a workspace edit to the client specific new line character(s).
-	
-	*since lsp v3.16.0*
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub normalizesLineEndings: Option<bool>,
+    /**
+    The failure handling strategy of a client if applying the workspace edit
+    fails.
 
-	/**
-	Whether the client in general supports change annotations on text edits,
-	create file, rename file and delete file changes.
-	
-	*since lsp v3.16.0*
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub changeAnnotationSupport: Option<ChangeAnnotationSupport>,
+    *since lsp v3.13.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub failureHandling: Option<FailureHandlingKind>,
+
+    /**
+    Whether the client normalizes line endings to the client specific
+    setting.
+    If set to `true` the client will normalize line ending characters
+    in a workspace edit to the client specific new line character(s).
+
+    *since lsp v3.16.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub normalizesLineEndings: Option<bool>,
+
+    /**
+    Whether the client in general supports change annotations on text edits,
+    create file, rename file and delete file changes.
+
+    *since lsp v3.16.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub changeAnnotationSupport: Option<ChangeAnnotationSupport>,
 }
 #[derive(Debug, Serialize, Default)]
 pub struct DidChangeConfigurationClient {
     #[serde(skip_serializing_if = "Option::is_none")]
-pub dynamicRegistration: Option<bool>,
+    pub dynamicRegistration: Option<bool>,
 }
 #[derive(Debug, Serialize, Default)]
 pub struct DidChangeWatchedFilesClient {
     #[serde(skip_serializing_if = "Option::is_none")]
-pub dynamicRegistration: Option<bool>,
+    pub dynamicRegistration: Option<bool>,
 }
 #[derive(Debug, Serialize, Default)]
 #[serde(flatten)]
 pub enum SymbolKind {
     File = 1,
-	Module = 2,
-	Namespace = 3,
-	Package = 4,
-	Class = 5,
-	Method = 6,
-	Property = 7,
-	Field = 8,
-	Constructor = 9,
-	Enum = 10,
-	Interface = 11,
-	Function = 12,
-	Variable = 13,
-	Constant = 14,
-	String = 15,
-	Number = 16,
-	bool = 17,
-	Array = 18,
-	Object = 19,
-	Key = 20,
-	Null = 21,
-	EnumMember = 22,
-	Struct = 23,
-	Event = 24,
-	Operator = 25,
-	TypeParameter = 26,
+    Module = 2,
+    Namespace = 3,
+    Package = 4,
+    Class = 5,
+    Method = 6,
+    Property = 7,
+    Field = 8,
+    Constructor = 9,
+    Enum = 10,
+    Interface = 11,
+    Function = 12,
+    Variable = 13,
+    Constant = 14,
+    String = 15,
+    Number = 16,
+    bool = 17,
+    Array = 18,
+    Object = 19,
+    Key = 20,
+    Null = 21,
+    EnumMember = 22,
+    Struct = 23,
+    Event = 24,
+    Operator = 25,
+    TypeParameter = 26,
 }
 #[derive(Debug, Serialize, Default)]
 pub struct SymbolKindSupport {
@@ -245,72 +245,71 @@ pub struct SymbolKindSupport {
     property exists the client also guarantees that it will
     handle values outside its set gracefully and falls back
     to a default value when unknown.
-    
+
     If this property is not present the client only supports
     the symbol kinds from `File` to `Array` as defined in
     the initial version of the protocol.
     */
     #[serde(skip_serializing_if = "Option::is_none")]
-    valueSet: Option<Vec<SymbolKind>>
-} 
+    valueSet: Option<Vec<SymbolKind>>,
+}
 #[derive(Debug, Serialize, Default)]
 pub struct WorkspaceSymbolClient {
-/**
-	Symbol request supports dynamic registration.
-	 */
-     #[serde(skip_serializing_if = "Option::is_none")]
-pub dynamicRegistration: Option<bool>,
+    /**
+    Symbol request supports dynamic registration.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dynamicRegistration: Option<bool>,
 
-     /**
-     Specific capabilities for the `SymbolKind` in the `workspace/symbol`
-     request.
-      */
-     #[serde(skip_serializing_if = "Option::is_none")]
-pub symbolKind: Option<SymbolKindSupport>,
- 
-     /**
-     The client supports tags on `SymbolInformation`.
-     Clients supporting tags have to handle unknown tags gracefully.
-     
-     *since lsp v3.16.0*
-      */
+    /**
+    Specific capabilities for the `SymbolKind` in the `workspace/symbol`
+    request.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub symbolKind: Option<SymbolKindSupport>,
+    /* *
+    The client supports tags on `SymbolInformation`.
+    Clients supporting tags have to handle unknown tags gracefully.
+
+    *since lsp v3.16.0*
+     */
     //  TODO: tagSupport?: TagSupport
 }
 #[derive(Debug, Serialize, Default)]
 pub struct ExecuteCommandClient {
     /**
-	Execute command supports dynamic registration.
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub dynamicRegistration: Option<bool>,
+    Execute command supports dynamic registration.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dynamicRegistration: Option<bool>,
 }
 #[derive(Debug, Serialize, Default)]
 pub struct SemanticTokensWorkspaceClient {
     /**
-	Whether the client implementation supports a refresh request sent from
-	the server to the client.
-	
-	Note that this event is global and will force the client to refresh all
-	semantic tokens currently shown. It should be used with absolute care
-	and is useful for situation where a server for example detect a project
-	wide change that requires such a calculation.
-	 */
-     #[serde(skip_serializing_if = "Option::is_none")]
-pub refreshSupport: Option<bool>,
+    Whether the client implementation supports a refresh request sent from
+    the server to the client.
+
+    Note that this event is global and will force the client to refresh all
+    semantic tokens currently shown. It should be used with absolute care
+    and is useful for situation where a server for example detect a project
+    wide change that requires such a calculation.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub refreshSupport: Option<bool>,
 }
 #[derive(Debug, Serialize, Default)]
 pub struct CodeLensWorkspaceClient {
-	/**
-	Whether the client implementation supports a refresh request sent from the
-	server to the client.
-	
-	Note that this event is global and will force the client to refresh all
-	code lenses currently shown. It should be used with absolute care and is
-	useful for situation where a server for example detect a project wide
-	change that requires such a calculation.
-	 */
-     #[serde(skip_serializing_if = "Option::is_none")]
-pub refreshSupport: Option<bool>,
+    /**
+    Whether the client implementation supports a refresh request sent from the
+    server to the client.
+
+    Note that this event is global and will force the client to refresh all
+    code lenses currently shown. It should be used with absolute care and is
+    useful for situation where a server for example detect a project wide
+    change that requires such a calculation.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub refreshSupport: Option<bool>,
 }
 
 #[derive(Debug, Serialize, Default)]
@@ -319,23 +318,23 @@ pub struct Window {
     Whether client supports handling progress notifications. If set
     servers are allowed to report in `workDoneProgress` property in the
     request specific server capabilities.
-    
+
     *since lsp v3.15.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
     pub workDoneProgress: Option<bool>,
-    
+
     /**
     Capabilities specific to the showMessage request
-    
+
     *since lsp v3.16.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
     pub showMessage: Option<ShowMessageRequestClientCapabilities>,
-    
+
     /**
     Client capabilities for the show document request.
-    
+
     *since lsp v3.16.0*
     */
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -352,67 +351,66 @@ pub struct StaleRequestSupport {
     will retry the request if it receives a
     response with error code `ContentModified`
     */
-    pub retryOnContentModified: Vec<String>
+    pub retryOnContentModified: Vec<String>,
 }
 struct General {
-		/**
-		Client capability that signals how the client
-		handles stale requests (e.g. a request
-		for which the client will not process the response
-		anymore since the information is outdated).
-		
-		*since lsp v3.17.0*
-		 */
-		#[serde(skip_serializing_if = "Option::is_none")]
-pub staleRequestSupport: Option<StaleRequestSupport>,
+    /**
+    Client capability that signals how the client
+    handles stale requests (e.g. a request
+    for which the client will not process the response
+    anymore since the information is outdated).
 
-		/**
-		Client capabilities specific to regular expressions.
-		
-		*since lsp v3.16.0*
-		 */
-		#[serde(skip_serializing_if = "Option::is_none")]
-pub regularExpressions: Option<RegularExpressionsClientCapabilities>,
+    *since lsp v3.17.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub staleRequestSupport: Option<StaleRequestSupport>,
 
-		/**
-		Client capabilities specific to the client's markdown parser.
-		
-		*since lsp v3.16.0*
-		 */
-		#[serde(skip_serializing_if = "Option::is_none")]
-pub markdown: Option<MarkdownClientCapabilities>,
+    /**
+    Client capabilities specific to regular expressions.
+
+    *since lsp v3.16.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub regularExpressions: Option<RegularExpressionsClientCapabilities>,
+
+    /**
+    Client capabilities specific to the client's markdown parser.
+
+    *since lsp v3.16.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub markdown: Option<MarkdownClientCapabilities>,
 }
 #[derive(Debug, Serialize, Default)]
 pub struct Client {
-	/**
-	Workspace specific client capabilities.
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub workspace: Option<Workspace>,
+    /**
+    Workspace specific client capabilities.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub workspace: Option<Workspace>,
 
-	/**
-	Text document specific client capabilities.
-	 */
-	#[serde(skip_serializing_if = "Option::is_none")]
-pub textDocument: Option<TextDocumentClientCapabilities>,
+    /**
+    Text document specific client capabilities.
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub textDocument: Option<TextDocumentClientCapabilities>,
 
-	/**
-	Window specific client capabilities.
-	 */
+    /**
+    Window specific client capabilities.
+     */
     #[serde(skip_serializing_if = "Option::is_none")]
     pub window: Option<Window>,
 
-	/**
-	General client capabilities.
-	
-	*since lsp v3.16.0*
-	 */
-     #[serde(skip_serializing_if = "Option::is_none")]
-	pub general: Option<General>, 
+    /**
+    General client capabilities.
 
-	/**
-	Experimental client capabilities.
-	 */
-// 	#[serde(skip_serializing_if = "Option::is_none")]
-// pub experimental: Option<any>,
+    *since lsp v3.16.0*
+     */
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub general: Option<General>,
+    /* *
+    Experimental client capabilities.
+     */
+    // 	#[serde(skip_serializing_if = "Option::is_none")]
+    // pub experimental: Option<any>,
 }
