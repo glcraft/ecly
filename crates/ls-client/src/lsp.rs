@@ -1,30 +1,35 @@
+use std::process::{Child, ChildStdin, ChildStdout, Command, Stdio};
+
 use crate::json_rpc;
-use serde::{Serialize, Deserialize};
 
-type DocumentUri = String;
-type URI = String;
 pub mod capabilities;
+pub mod messages;
 
-#[derive(Serialize, Deserialize)]
-pub struct ClientInfo {
-    name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    version: Option<String>
+
+pub struct LanguageServer {
+    program: Child,
+    stdin: ChildStdin,
+    stdout: ChildStdout,
 }
 
-#[derive(Serialize, Deserialize)]
-struct WorkspaceFolder {
-    uri: DocumentUri,
-    name: String
+impl LanguageServer {
+    pub fn new() -> LanguageServer {
+        let mut program = Command::new("./rust-ana/rust-analyzer")
+            // .args(["/C", "echo hello"])
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .spawn()
+            .expect("msg");
+        let (stdin, stdout) = (
+            program.stdin.take().unwrap(),
+            program.stdout.take().unwrap()
+        );
+        LanguageServer {
+            program,
+            stdin, stdout
+        }
+    }
+    pub fn initialize(init_params: messages::InitializeParams) {
+    
+    }
 }
-#[derive(Serialize, Deserialize)]
-pub struct InitializeParams {
-    processId: Option<i32>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    clientInfo: Option<ClientInfo>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    locale: Option<String>,
-    workspaceFolder: Option<Vec<>>
-}
-
-pub struct Initialize(json_rpc::)
