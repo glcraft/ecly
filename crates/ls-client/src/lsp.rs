@@ -3,6 +3,7 @@ use serde::{Serialize, Deserialize};
 
 type DocumentUri = String;
 type URI = String;
+pub mod capabilities;
 
 #[derive(Serialize, Deserialize)]
 pub struct ClientInfo {
