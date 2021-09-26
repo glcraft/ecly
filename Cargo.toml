@@ -9,4 +9,4 @@ member= []
 [dependencies]
 crossterm = "0.21"
 tui = { version = "0.16", default-features = false, features = ['crossterm'] }
-ls-client = { path = "./crates/ls-client" }
+# ls-client = { path = "./crates/ls-client" }
