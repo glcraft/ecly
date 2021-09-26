@@ -227,7 +227,7 @@ pub enum SymbolKind {
     Constant = 14,
     String = 15,
     Number = 16,
-    bool = 17,
+    Boolean = 17,
     Array = 18,
     Object = 19,
     Key = 20,
