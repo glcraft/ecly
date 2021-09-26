@@ -9,3 +9,9 @@ Please hold on for some time.
 The idea is to make a *simple* vscode like for console. There's plenty console app doing so, but I want to make something modulable, extensive, lsp compatible, and shortcut friendly instead of Vim friendly. It should be Vim compatible at some point but that's not my main purpose currently.
 
 The program is developed in Rust.
+
+# License
+
+For now, the project is **GPL3 licenced**. 
+
+The idea is to encourage contributions during the early development. I may change later.
