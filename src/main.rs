@@ -1,10 +1,13 @@
-use crossterm::event::{Event, poll};
-use crossterm::style::Print;
-use crossterm::{cursor, execute};
-use std::io;
+use crossterm::{event::Event, execute};
+
+use tui::widget::Paragraph;
+use std::io::Write;
+
+use crate::tui::widget::Widget;
 
 mod editor;
 mod tui;
+mod log;
 
 #[cfg(test)]
 mod tests {
@@ -14,20 +17,17 @@ mod tests {
     }
 }
 
-fn main() -> Result<(), io::Error> {
-    let mut stdout = io::stdout();
-
-    let code_rs = std::fs::read_to_string("./src/main.rs")?;
-    
+fn main() -> Result<(), std::io::Error> {
+    let mut stdout = std::io::stdout();
     let mut frame = tui::Frame::new();
-    let text = "Hello world";
-    let width = tui::terminal_size().0;
-    let (left, right) = (-8, width as i16-2);
-    let (mut pos, mut sens) = ((left,5), true);
+    let mut txt_scroll = Paragraph::new();
+    txt_scroll.set_text("c'est un text défilant\nPas un gros paragraphe\nMais quand meme!");
+
     execute!(stdout, crossterm::terminal::EnterAlternateScreen)?;
     'edit: loop {
         use crossterm::event::{read, KeyCode, KeyEvent};
-        if poll(std::time::Duration::from_millis(200))? {
+        // if poll(std::time::Duration::from_millis(200))? 
+        {
             match read()? {
                 Event::Key(KeyEvent{ code:KeyCode::Esc, .. }) => break 'edit,
                 // Event::Key(KeyEvent{code: KeyCode::Char(c), ..}) => execute!(stdout, Print(c))?,
@@ -37,20 +37,13 @@ fn main() -> Result<(), io::Error> {
                 _ => ()
             }
         }
-        if sens {
-            pos.0+=1;
-        } else {
-            pos.0-=1;
-        }
-        if sens && pos.0 == right {
-            sens=false;
-        } else if  !sens && pos.0 == left {
-            sens=true;
-        }
+        // println!()
+        txt_scroll.on_update_layout(frame.get_screen());
         frame.clear()?;
-        frame.write_str(pos, text)?;
+        txt_scroll.render(&mut frame)?;
         frame.flush()?;
-
+        log_writeln!("fslkjdfq")?;
     }
     execute!(stdout, crossterm::terminal::LeaveAlternateScreen)?;
+    log::flush()
 }
