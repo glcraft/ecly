@@ -1,3 +1,5 @@
+use std::ops::Range;
+
 #[derive(Debug,Clone, Copy, Default)]
 pub struct Position {
     pub x: i16,
@@ -30,13 +32,17 @@ pub fn clamp<T: PartialOrd>(v_min: T, v_max: T, x: T) -> T {
     max(v_min, min(v_max, x))
 }
 
-pub fn cut_text<'a>(text: &'a str, pos: i16, borders: (i16, i16)) -> &'a str {
+pub fn cut_text_range(text: &str, pos: i16, borders: (i16, i16)) -> Range<usize> {
     let offset = (
         borders.0 - pos,
         borders.1 - 1 - pos,
     );
     let text_offset = (clamp(0, text.len() as i16, offset.0) as usize, clamp(0, text.len() as i16, offset.1) as usize);
-    &text[char_to_utf8_index(text.as_bytes(), text_offset.0)..char_to_utf8_index(text.as_bytes(), text_offset.1)]
+    char_to_utf8_index(text.as_bytes(), text_offset.0)..char_to_utf8_index(text.as_bytes(), text_offset.1)
+}
+pub fn cut_text<'a>(text: &'a str, pos: i16, borders: (i16, i16)) -> &'a str {
+    
+    &text[cut_text_range(text, pos, borders)]
 }
 pub fn utf8_len(c: u8) -> usize {
     if c&0x80 == 0 {1}
