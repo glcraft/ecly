@@ -24,6 +24,7 @@ fn main() -> Result<(), io::Error> {
     let width = tui::terminal_size().0;
     let (left, right) = (-8, width as i16-2);
     let (mut pos, mut sens) = ((left,5), true);
+    execute!(stdout, crossterm::terminal::EnterAlternateScreen)?;
     'edit: loop {
         use crossterm::event::{read, KeyCode, KeyEvent};
         if poll(std::time::Duration::from_millis(200))? {
@@ -51,5 +52,5 @@ fn main() -> Result<(), io::Error> {
         frame.flush()?;
 
     }
-    Ok(())
+    execute!(stdout, crossterm::terminal::LeaveAlternateScreen)?;
 }
