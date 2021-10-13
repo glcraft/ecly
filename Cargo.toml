@@ -9,5 +9,10 @@ member= []
 [dependencies]
 crossterm = "0.21"
 terminal_size = "0.1"
+lazy_static = { version = "1.4", optional = true }
 # tui = { version = "0.16", default-features = false, features = ['crossterm'] }
 # ls-client = { path = "./crates/ls-client" }
+
+[features]
+default = ["log"]
+log = ["lazy_static"]
