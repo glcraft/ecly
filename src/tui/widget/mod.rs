@@ -2,7 +2,9 @@ use crossterm::event::Event;
 use super::{Frame, util::{self, Rect, TuiResult}};
 
 mod text_scroll;
-pub use text_scroll::TextScroll;
+mod paragraph;
+pub use text_scroll::*;
+pub use paragraph::*;
 
 pub trait Widget {
     fn render(&self, frame: &mut Frame) -> TuiResult<()>;
