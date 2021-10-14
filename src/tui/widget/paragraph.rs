@@ -80,10 +80,10 @@ impl Paragraph {
 impl Widget for Paragraph {
     fn render(&self, frame: &mut Frame) -> TuiResult<()> {
         let mut y=self.pos_y;
-        self.lines.iter().for_each(|line| {
-            frame.write_str(Position { x: line.pos_x, y: y }, line.get_text());
+        for line in self.lines.iter() {
+            frame.write_str(Position { x: line.pos_x, y: y }, line.get_text())?;
             y+=1;
-        });
+        };
         Ok(())
     }
 
