@@ -1,9 +1,6 @@
 use std::ops::Range;
-
-use crossterm::event::Event;
-use crate::tui::util::{Position, cut_text, cut_text_range};
-
-use super::{Widget, Frame, util::{Rect, TuiResult}};
+use crate::{tui::util::{Position, cut_text_range}};
+use super::{Widget, Frame, util::{Rect, TuiResult, Utf8Manip}};
 
 struct Line {
     pos_x: i16,
@@ -91,11 +88,11 @@ impl Widget for Paragraph {
         let Alignments(al_x, al_y) = &self.alignment;
         let (zx,zy,zw,zh) = (zone.x as i16, zone.y as i16, zone.w as i16, zone.h as i16);
         self.lines.iter_mut().for_each(|line| {
-            let lilen = line.text.len() as i16;
+            let lilen = line.text.u8_len() as i16;
             line.pos_x = match al_x {
                 AlignmentX::Left => zx,
                 AlignmentX::Center => zx+(zw-lilen)/2,
-                AlignmentX::Right => zx+zw-lilen,
+                AlignmentX::Right => zx+zw-lilen-1,
             };
             line.range_txt = cut_text_range(&line.text, line.pos_x, (zx as i16, (zx+zw) as i16))
         });

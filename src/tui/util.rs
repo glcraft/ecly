@@ -60,5 +60,27 @@ pub fn char_to_utf8_index(s:&[u8], mut ind: usize) -> usize{
     }
     i
 }
-
+use std::ops::Deref;
 pub type TuiResult<T> = Result<T, std::io::Error>;
+
+pub trait Utf8Manip 
+    where Self: Deref<Target=str>
+{
+    #[inline]
+    fn u8_len(&self) -> usize {
+        self.chars().count()
+    }
+    fn u8_index(&self, mut ind: usize) -> usize {
+        let s = self.as_bytes();
+        let len = s.len();
+        let mut i=0;
+        while i < len && ind > 0  {
+            i+=utf8_len(s[i]);
+            ind-=1;
+        }
+        i
+    }
+}
+
+impl<S: Deref<Target=str>> Utf8Manip for S 
+{}
