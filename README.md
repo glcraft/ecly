@@ -10,6 +10,8 @@ The idea is to make a *simple* vscode like for console. There's plenty console a
 
 The program is developed in Rust.
 
+See also [clui crate](https://github.com/glcraft/clui) for the text based user interface used in this app.
+
 # License
 
 For now, the project is **GPL3 licenced**. 

@@ -1,13 +1,13 @@
-use crossterm::{event::Event, execute};
 
-use tui::widget::Paragraph;
-use std::io::Write;
-
-use crate::tui::widget::Widget;
-
-mod editor;
-mod tui;
 mod log;
+
+use crossterm::{event::Event, execute};
+use clui::widget::Paragraph;
+use std::io::Write;
+use clui::widget::Widget;
+
+// mod editor;
+
 
 #[cfg(test)]
 mod tests {
@@ -18,11 +18,12 @@ mod tests {
 }
 
 fn main() -> Result<(), std::io::Error> {
+    use clui::widget::{Alignments, AlignmentX, AlignmentY};
     let mut stdout = std::io::stdout();
-    let mut frame = tui::Frame::new();
+    let mut frame = clui::Frame::new();
     let mut txt_scroll = Paragraph::new();
-    txt_scroll.set_text("c'est un text défilant\nPas un gros paragraphe\nMais quand meme!");
-
+    txt_scroll.set_text("c'est un paragraphe\nPas un gros paragraphe\nMais quand même!\nToute facon, on s'en fout, c'est pour le test");
+    txt_scroll.set_alignment(Alignments(AlignmentX::Right, AlignmentY::Bottom));
     execute!(stdout, crossterm::terminal::EnterAlternateScreen)?;
     'edit: loop {
         use crossterm::event::{read, KeyCode, KeyEvent};
@@ -42,7 +43,7 @@ fn main() -> Result<(), std::io::Error> {
         frame.clear()?;
         txt_scroll.render(&mut frame)?;
         frame.flush()?;
-        log_writeln!("fslkjdfq")?;
+        // log_writeln!("fslkjdfq")?;
     }
     execute!(stdout, crossterm::terminal::LeaveAlternateScreen)?;
     log::flush()
