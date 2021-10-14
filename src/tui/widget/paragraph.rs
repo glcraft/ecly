@@ -63,7 +63,7 @@ impl Paragraph {
         self.lines = text
             .split('\n')
             .map(|s| s.chars()
-                .filter(|c| *c=='\r')
+                .filter(|c| *c!='\r')
                 .collect::<String>()
             )
             .map(|s| {
