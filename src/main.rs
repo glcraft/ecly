@@ -2,7 +2,7 @@
 mod log;
 
 use crossterm::{event::Event, execute};
-use clui::widget::Paragraph;
+use clui::{backend::Frame, widget::Paragraph};
 use std::io::Write;
 use clui::widget::Widget;
 
@@ -20,7 +20,7 @@ mod tests {
 fn main() -> Result<(), std::io::Error> {
     use clui::widget::{Alignments, AlignmentX, AlignmentY};
     let mut stdout = std::io::stdout();
-    let mut frame = clui::Frame::new();
+    let mut frame = clui::backend::CrosstermFrame::new();
     let mut txt_scroll = Paragraph::new();
     txt_scroll.set_text("c'est un paragraphe\nPas un gros paragraphe\nMais quand même!\nToute facon, on s'en fout, c'est pour le test");
     txt_scroll.set_alignment(Alignments(AlignmentX::Right, AlignmentY::Bottom));
